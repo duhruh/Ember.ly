@@ -20,6 +20,7 @@ server.listen(3000);
 
 
 app.get('/api', function(req, res, next){
+    console.log("api request"); 
     res.send(api); 
 }); 
 

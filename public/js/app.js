@@ -2,6 +2,7 @@ App = Ember.Application.create();
 
 App.Router.map(function() {
   // put your routes here
+    this.resource('queue',{path:'/queue/:department_id'});
 });
 
 
@@ -48,7 +49,13 @@ App.IndexRoute = Ember.Route.extend({
     return this.store.findAll('ticket');
   }
 });
-
+App.QueueRoute = Ember.Route.extend({
+  model: function(params) {
+console.log(params);
+    route = this;
+    return this.store.findAll('ticket');
+  }
+});
 
 var socket = io.connect('http://localhost');
 socket.on('connection', function (data) {
@@ -56,6 +63,7 @@ socket.on('connection', function (data) {
 });
 socket.on('ticket',function(data){
 setTimeout(function(){
+    console.log("trigger");
     route.store.push('ticket',data);
 },5000);
 });
